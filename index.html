@@ -1,0 +1,64 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Age Calculator</h2>
+    
+    <label for="day">Day:</label>
+    <input type="number" id="day" placeholder="DD" min="1" max="31">
+    
+    <label for="month">Month:</label>
+    <input type="number" id="month" placeholder="MM" min="1" max="12">
+    
+    <label for="year">Year:</label>
+    <input type="number" id="year" placeholder="YYYY" min="1900" max="2023">
+    <br><br>
+    
+    <button onclick="calculateAge()">Calculate Age</button>
+    <br><br>
+
+    <p id="result"></p>
+
+    <script>
+        function calculateAge() {
+            // Get the values from the input fields
+            var day = document.getElementById("day").value;
+            var month = document.getElementById("month").value;
+            var year = document.getElementById("year").value;
+
+            // Check if all fields are filled
+            if (day === '' || month === '' || year === '') {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            // Create a Date object from the input values
+            var dob = new Date(year, month - 1, day); // Note: Months are 0-based
+
+            // Calculate age
+            var today = new Date();
+            var age = today.getFullYear() - dob.getFullYear();
+
+            // Check if birthday has occurred this year
+            if (today.getMonth() < dob.getMonth() || (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            // Display the result
+            var resultElement = document.getElementById("result");
+            resultElement.innerHTML = "Your age is: " + age + " years.";
+        }
+    </script>
+</body>
+</html>
